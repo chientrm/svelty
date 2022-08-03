@@ -11,14 +11,14 @@ const worker: Module.Worker<{ ASSETS: Durable.Object }> = {
 			return res;
 		}
 		const { pathname } = new URL(req.url);
-		if (pathname.startsWith('assets')) {
+		if (pathname.startsWith('/assets')) {
 			return env.ASSETS.fetch(req);
 		} else {
 			const { file } = manifest['routes/client.ts'];
 			return new Response(
 				app
 					.replace('%head%', ``)
-					.replace('%body%', `<script type="module" src="${file}"></script>`),
+					.replace('%body%', `"<script type="module" src="${file}"></script>`),
 				{ headers: { 'content-type': 'text/html' } }
 			);
 		}
