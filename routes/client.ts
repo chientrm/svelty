@@ -1,9 +1,17 @@
-import type Root__SvelteComponent_ from '$routes/root.svelte';
-import { forRoot, match } from './routes';
+import type Root__SvelteComponent_ from './root.svelte';
+import { match } from './routes';
 
 type Start = (params: { target: HTMLElement; url: string }) => void;
 
 let root: Root__SvelteComponent_;
+
+export const forRoot = import('./root.svelte').then((m) => m.default);
+
+const lazyLoaders: Record<string, () => Promise<any>[]> = {
+	home: () => [import('./layout.svelte'), import('./home.svelte')],
+	about: () => [import('./layout.svelte'), import('./about.svelte')],
+	not_found: () => [import('./layout.svelte'), import('./404.svelte')]
+};
 
 const find_anchor_tag = (element: HTMLElement): HTMLAnchorElement => {
 	if (element.tagName === 'HTML') return undefined;
@@ -13,10 +21,9 @@ const find_anchor_tag = (element: HTMLElement): HTMLAnchorElement => {
 
 const match_route: Start = async ({ target, url }) => {
 	const route = match(url),
-		forModules = Promise.all(route.loadComponents()),
+		forModules = Promise.all(lazyLoaders[route].call(null)),
 		forComponents = forModules.then((l) => l.map((i) => i.default)),
-		forHydrate = Promise.all([forRoot, forComponents]);
-	const [Root, components] = await forHydrate;
+		[Root, components] = await Promise.all([forRoot, forComponents]);
 	document.querySelector('style[data]')?.remove();
 	if (root) {
 		root.$set({ components });
@@ -40,3 +47,5 @@ export const start: Start = async ({ target, url }) => {
 		match_route({ url: window.location.pathname, target })
 	);
 };
+
+start({ target: document.body, url: window.location.pathname });

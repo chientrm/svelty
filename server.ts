@@ -1,6 +1,7 @@
 import type { ModuleNode, ViteDevServer } from 'vite';
-import { match, rootPath } from './routes';
+import { match } from './routes/routes';
 import hash from '$lib/utils/hash';
+import app from './app.html?raw';
 
 const cssReg = /\.(css)$/;
 
@@ -10,7 +11,21 @@ type Render = (params: {
 	app: string;
 }) => Promise<string>;
 
-export const render: Render = async ({ url, vite, app }) => {
+const paths = {
+	root: '$routes/root.svelte',
+	layout: '$routes/layout.svelte',
+	home: '$routes/home.svelte',
+	about: '$routes/about.svelte',
+	not_found: '$routes/404.svelte'
+};
+
+const routePaths: Record<string, string[]> = {
+	home: [paths.layout, paths.home],
+	about: [paths.layout, paths.about],
+	notFound: [paths.layout, paths.not_found]
+};
+
+export const render: Render = async ({ url, vite }) => {
 	const ssrComp = (p: string) => vite.ssrLoadModule(p).then((m) => m.default),
 		ssrCss = (n: ModuleNode) => (cssReg.test(n.url) ? ssrComp(n.url) : null),
 		loadModule = async (p: string) => {
@@ -19,8 +34,8 @@ export const render: Render = async ({ url, vite, app }) => {
 			return { component, node };
 		},
 		route = match(url),
-		forRoot = ssrComp(rootPath),
-		forModules = Promise.all(route.paths.map(loadModule)),
+		forRoot = ssrComp(paths.root),
+		forModules = Promise.all(routePaths[route].map(loadModule)),
 		forNodes = forModules.then((l) => l.map((i) => i.node)),
 		forComponents = forModules.then((l) => l.map((i) => i.component)),
 		forStyles = forNodes.then((l) =>
@@ -38,7 +53,7 @@ export const render: Render = async ({ url, vite, app }) => {
 				`
 			${html}
 			<script type="module" data-hydrate="${target}">
-				import { start } from '/client.ts';
+				import { start } from '/routes/client.ts';
 				start({
 					target: document.querySelector('[data-hydrate="${target}"]').parentNode,
 					url: ${JSON.stringify(url)}
@@ -47,5 +62,3 @@ export const render: Render = async ({ url, vite, app }) => {
 			);
 	return result;
 };
-
-export const respond = render;

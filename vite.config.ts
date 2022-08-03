@@ -6,5 +6,6 @@ export default defineConfig({
 	plugins: [[...svelte({ compilerOptions: { hydratable: true } }), kit]],
 	resolve: {
 		alias: { $lib: '/lib', $routes: '/routes', $runtime: '/runtime' }
-	}
+	},
+	build: { manifest: true, rollupOptions: { input: 'routes/client.ts' } }
 });
