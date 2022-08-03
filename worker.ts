@@ -18,7 +18,8 @@ const worker: Module.Worker<{ ASSETS: Durable.Object }> = {
 			return new Response(
 				app
 					.replace('%head%', ``)
-					.replace('%body%', `<script type="module" src="${file}"></script>`)
+					.replace('%body%', `<script type="module" src="${file}"></script>`),
+				{ headers: { 'content-type': 'text/html' } }
 			);
 		}
 	}
