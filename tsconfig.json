@@ -1,0 +1,32 @@
+{
+	"extends": "@tsconfig/svelte/tsconfig.json",
+	"compilerOptions": {
+		"target": "ESNext",
+		"useDefineForClassFields": true,
+		"module": "ESNext",
+		"resolveJsonModule": true,
+		"baseUrl": ".",
+		"allowJs": true,
+		"checkJs": true,
+		"isolatedModules": true,
+		"composite": true,
+		"moduleResolution": "Node",
+		"paths": {
+			"$lib/*": ["lib/*"],
+			"$routes/*": ["routes/*"],
+			"$runtime/*": ["runtime/*"]
+		},
+		"types": ["@cloudflare/workers-types"]
+	},
+	"include": [
+		"routes/**/*.ts",
+		"routes/**/*.svelte",
+		"lib/**/*.ts",
+		"runtime/**/*.ts",
+		"vite.config.ts",
+		"kit.ts",
+		"server.ts",
+		"client.ts",
+		"vite-env.d.ts"
+	]
+}
