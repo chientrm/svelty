@@ -9,7 +9,7 @@ const worker: Module.Worker<{ ASSETS: Durable.Object }> = {
 		const { pathname } = new URL(req.url);
 		if (pathname === '/sw.js') {
 			return new Response(sw, {
-				headers: { 'Content-Type': 'application/javascript' }
+				headers: { 'content-type': 'application/javascript' }
 			});
 		}
 		if (pathname.startsWith('/assets')) {
@@ -22,11 +22,11 @@ const worker: Module.Worker<{ ASSETS: Durable.Object }> = {
 					'%body%',
 					`
 					<script>
-					window.addEventListener("load", () => {
-						if ("serviceWorker" in navigator) {
-						  navigator.serviceWorker.register("/sw.js");
-						}
-					});
+						window.addEventListener("load", () => {
+							if ("serviceWorker" in navigator) {
+							navigator.serviceWorker.register("/sw.js");
+							}
+						});
 					</script>
 					<script type="module" src="${file}"></script>
 					`
