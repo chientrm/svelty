@@ -8,7 +8,9 @@ const worker: Module.Worker<{ ASSETS: Durable.Object }> = {
 	async fetch(req, env) {
 		const { pathname } = new URL(req.url);
 		if (pathname === '/sw.js') {
-			return new Response(sw);
+			return new Response(sw, {
+				headers: { 'Content-Type': 'application/javascript' }
+			});
 		}
 		if (pathname.startsWith('/assets')) {
 			const res = await env.ASSETS.fetch(req);
