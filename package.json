@@ -6,13 +6,12 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build:client": "vite build",
-		"build:server": "esbuild worker.ts --bundle --minify --loader:.html=text --outfile=dist/_worker.js --format=esm",
+		"build:server": "esbuild worker.ts --bundle --minify --loader:.html=text --loader:.js=text --outfile=dist/_worker.js --format=esm",
 		"build": "npm run build:client && npm run build:server",
 		"preview": "wrangler pages dev dist",
 		"check": "svelte-check --tsconfig ./tsconfig.json"
 	},
 	"devDependencies": {
-		"@cloudflare/workers-types": "^3.14.1",
 		"@sveltejs/vite-plugin-svelte": "^1.0.1",
 		"@tsconfig/svelte": "^3.0.0",
 		"@types/express": "^4.17.13",

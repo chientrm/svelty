@@ -15,8 +15,7 @@
 			"$lib/*": ["lib/*"],
 			"$routes/*": ["routes/*"],
 			"$runtime/*": ["runtime/*"]
-		},
-		"types": ["@cloudflare/workers-types"]
+		}
 	},
 	"include": [
 		"routes/**/*.ts",
