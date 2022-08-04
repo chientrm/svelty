@@ -1,6 +1,7 @@
-const cacheName = 'SvelteCache_V1';
+const cacheName = 'SvelteCache';
 self.addEventListener('install', (e) => e.waitUntil(caches.open(cacheName)));
 self.addEventListener('fetch', async (e) => {
+    console.log({ url: e.request.url });
     if (e.request.url.startsWith('/assets')) {
         e.respondWith(
             caches.open(cacheName).then((cache) => {
