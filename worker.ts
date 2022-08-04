@@ -12,7 +12,14 @@ const worker: Module.Worker<{ ASSETS: Durable.Object }> = {
 		}
 		const { pathname } = new URL(req.url);
 		if (pathname.startsWith('/assets')) {
-			return env.ASSETS.fetch(req);
+			const res = await env.ASSETS.fetch(req);
+			return new Response(res.body, {
+				headers: {
+					'cache-control': 'public, immutable, max-age=31536000',
+					'content-type': res.headers.get('content-type'),
+					'x-robots-tag': 'noindex'
+				}
+			});
 		} else {
 			const { file } = manifest['routes/client.ts'];
 			return new Response(
