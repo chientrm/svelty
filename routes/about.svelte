@@ -1,1 +1,1 @@
-<p>Svelty is built by a homeless Svelte developers.</p>
+<p>Svelty is built by a homeless Svelte developer.</p>
