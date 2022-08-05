@@ -28,6 +28,7 @@
 		"routes/client.ts",
 		"vite-env.d.ts",
 		"worker.ts",
-		"dist/client/manifest.json"
+		"dist/client/manifest.json",
+		"dist/client/css.json"
 	]
 }
