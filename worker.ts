@@ -33,7 +33,15 @@ const worker: Module.Worker<{ ASSETS: Durable.Object }> = {
 			});
 		}
 		if (pathname.startsWith('/assets')) {
-			return env.ASSETS.fetch(req);
+			const asset = await env.ASSETS.fetch(req),
+				result = new Response(asset.body, {
+					headers: {
+						'cache-control': 'public, immutable, max-age=31536000',
+						'content-type': asset.headers.get('content-type'),
+						'x-robots-tag': 'noindex'
+					}
+				});
+			return result;
 		} else {
 			const { file } = manifest['routes/client.ts'],
 				route = match(pathname),
@@ -42,14 +50,13 @@ const worker: Module.Worker<{ ASSETS: Durable.Object }> = {
 				styleEntries = entries.map((e) => manifest[e].css).flat(),
 				styles = styleEntries.map((e) => css[e]),
 				/* @ts-ignore */
-				{ html, head } = root.render({ components });
-			console.log({ components });
-			return new Response(
-				app
-					.replace('%head%', `${head}<style data>${styles.join('')}</style>`)
-					.replace(
-						'%body%',
-						`
+				{ html, head } = root.render({ components }),
+				result = new Response(
+					app
+						.replace('%head%', `${head}<style data>${styles.join('')}</style>`)
+						.replace(
+							'%body%',
+							`
 					${html}
 					<script>
 						window.addEventListener("load", () => {
@@ -60,9 +67,15 @@ const worker: Module.Worker<{ ASSETS: Durable.Object }> = {
 					</script>
 					<script type="module" src="${file}"></script>
 					`
-					),
-				{ headers: { 'content-type': 'text/html' } }
-			);
+						),
+					{
+						headers: {
+							'content-type': 'text/html',
+							'cache-control': 'no-cache'
+						}
+					}
+				);
+			return result;
 		}
 	}
 };
