@@ -1,4 +1,4 @@
-const cacheName = 'SvelteCache';
+const cacheName = 'SveltyCache';
 self.addEventListener('install', (e) => e.waitUntil(caches.open(cacheName)));
 self.addEventListener('fetch', async (e) => {
     const { url } = e.request;

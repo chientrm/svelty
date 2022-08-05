@@ -33,15 +33,7 @@ const worker: Module.Worker<{ ASSETS: Durable.Object }> = {
 			});
 		}
 		if (pathname.startsWith('/assets')) {
-			const asset = await env.ASSETS.fetch(req),
-				result = new Response(asset.body, {
-					headers: {
-						'cache-control': 'public, immutable, max-age=31536000',
-						'content-type': asset.headers.get('content-type'),
-						'x-robots-tag': 'noindex'
-					}
-				});
-			return result;
+			return env.ASSETS.fetch(req);
 		} else {
 			const { file } = manifest['routes/client.ts'],
 				route = match(pathname),
