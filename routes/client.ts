@@ -3,7 +3,8 @@ import { match } from './routes';
 
 let root: Root__SvelteComponent_;
 
-const forRoot = import('./root.svelte').then((m) => m.default),
+const _ = 0,
+	forRoot = import('./root.svelte').then((m) => m.default),
 	lazyLoaders: Record<string, () => Promise<any>[]> = {
 		home: () => [import('./layout.svelte'), import('./home.svelte')],
 		about: () => [import('./layout.svelte'), import('./about.svelte')],
