@@ -3,17 +3,11 @@ import { match } from './routes';
 
 let root: Root__SvelteComponent_;
 
-const _ = 0,
-	forRoot = import('./root.svelte').then((m) => m.default),
+const forRoot = import('./root.svelte').then((m) => m.default),
 	lazyLoaders: Record<string, () => Promise<any>[]> = {
 		home: () => [import('./layout.svelte'), import('./home.svelte')],
 		about: () => [import('./layout.svelte'), import('./about.svelte')],
 		not_found: () => [import('./layout.svelte'), import('./404.svelte')]
-	},
-	find_anchor_tag = (element: HTMLElement): HTMLAnchorElement => {
-		if (element.tagName === 'HTML') return undefined;
-		if (element.tagName === 'A') return element as HTMLAnchorElement;
-		return find_anchor_tag(element.parentElement);
 	},
 	match_route = async ({ pathname }: { pathname: string }) => {
 		const route = match(pathname),
@@ -27,6 +21,11 @@ const _ = 0,
 		} else {
 			root = new Root({ target, props: { components }, hydrate: true });
 		}
+	},
+	find_anchor_tag = (element: HTMLElement): HTMLAnchorElement => {
+		if (element.tagName === 'HTML') return undefined;
+		if (element.tagName === 'A') return element as HTMLAnchorElement;
+		return find_anchor_tag(element.parentElement);
 	},
 	{ pathname } = window.location;
 
