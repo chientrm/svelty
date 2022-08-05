@@ -1,1 +1,5 @@
-<p>Svelty is built by a homeless Svelte developer.</p>
+<script>
+	import string from '$lib/constants/string';
+</script>
+
+<p>{string.about}</p>

@@ -1,4 +1,8 @@
-<p>Community for homeless Svelte developers</p>
+<script>
+	import string from '$lib/constants/string';
+</script>
+
+<p>{string.summary}</p>
 
 <style>
 	p {
