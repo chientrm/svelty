@@ -5,10 +5,10 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
-		"build:client": "vite build",
-		"build:server": "esbuild worker.ts --bundle --minify --loader:.html=text --loader:.js=text --outfile=dist/_worker.js --format=esm",
-		"build": "npm run build:client && npm run build:server",
-		"preview": "wrangler pages dev dist",
+		"build:client": "vite build --outDir dist/client",
+		"build:worker": "vite build --outDir dist/worker --ssr worker.ts",
+		"build": "rm -rf dist && npm run build:client && npm run build:worker && mkdir -p dist/output && cp -r dist/client/assets dist/output/assets && cp -r dist/worker/worker.js dist/output/_worker.js",
+		"preview": "wrangler pages dev dist/output",
 		"check": "svelte-check --tsconfig ./tsconfig.json"
 	},
 	"devDependencies": {

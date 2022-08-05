@@ -24,10 +24,10 @@
 		"runtime/**/*.ts",
 		"vite.config.ts",
 		"kit.ts",
-		"server.ts",
+		"dev.ts",
 		"routes/client.ts",
 		"vite-env.d.ts",
 		"worker.ts",
-		"dist/manifest.json"
+		"dist/client/manifest.json"
 	]
 }

@@ -5,10 +5,9 @@ const result: Plugin = {
 	config: () => ({ appType: 'custom', base: '/' }),
 	configureServer: (vite) => () => {
 		vite.middlewares.use(async (req, res) => {
-			const { url } = req,
-				{ render } = await vite.ssrLoadModule('./server.ts');
+			const { render } = await vite.ssrLoadModule('./dev.ts');
 			res.writeHead(200, { 'Content-Type': 'text/html' }),
-				res.write(await render({ url, vite })),
+				res.write(await render({ req, vite })),
 				res.end();
 		});
 	}
