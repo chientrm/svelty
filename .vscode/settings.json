@@ -4,5 +4,11 @@
 	"prettier.useTabs": true,
 	"prettier.singleQuote": true,
 	"prettier.trailingComma": "none",
-	"prettier.printWidth": 80
+	"prettier.printWidth": 80,
+	"files.associations": {
+		"stdio.h": "c"
+	},
+	"[c]": {
+		"editor.defaultFormatter": "ms-vscode.cpptools"
+	}
 }
