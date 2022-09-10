@@ -1,8 +1,15 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+	import Anchor from '$lib/components/Anchor.svelte';
+	import routes from '$lib/constants/routes';
 	import strings from '$lib/constants/strings';
 	import image from '$lib/images/image.png';
-	import { page } from '$app/stores';
+	import 'modern-normalize/modern-normalize.css';
+	import GithubCircle from 'svelte-material-icons/GithubCircle.svelte';
+	import '../app.css';
+	import type { LayoutServerData } from './$types';
 	const gsiteVerification = 'gG8WXVPtqVVAJlnJb5v0LlC0-HBSCVSWsVqa7KHwTPA';
+	export let data: LayoutServerData;
 </script>
 
 <svelte:head>
@@ -20,4 +27,43 @@
 	<meta name="google-site-verification" content={gsiteVerification} />
 </svelte:head>
 
-<slot />
+<header>
+	<h2><Anchor href={routes.HOME}>{strings.SVELTY}</Anchor></h2>
+	<nav>
+		{#if data.user}
+			{#if data.user.github}
+				<a href={data.user.github.html_url} target="_blank">
+					{data.user.github.login}
+					(<GithubCircle />)
+				</a>
+			{/if}
+			<a href={routes.LOGOUT}>{strings.LOGOUT}</a>
+		{:else}
+			<Anchor href={routes.LOGIN}>{strings.LOGIN}</Anchor>
+		{/if}
+	</nav>
+</header>
+
+<main>
+	<div>
+		<slot />
+	</div>
+</main>
+
+<style>
+	header {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 2em;
+	}
+	main {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+	}
+	div {
+		width: 40em;
+	}
+</style>

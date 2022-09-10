@@ -1,2 +1,7 @@
-<h1>Svelty</h1>
-<p>Realtime chat room for homeless brothers</p>
+<script>
+	import strings from '$lib/constants/strings';
+</script>
+
+<p>{strings.DESCRIPTION}</p>
+
+<h3>{strings.ROOMS}</h3>

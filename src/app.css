@@ -1,0 +1,18 @@
+a {
+	text-decoration: none;
+}
+a:visited {
+	color: blue;
+}
+nav {
+	display: flex;
+	flex-direction: row;
+	gap: 1em;
+}
+p {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border: 1px solid black;
+	padding: 1em;
+}
