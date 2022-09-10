@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" height="627" width="1600">
+    <rect width="1600" height="313" fill="#ff3e00" />
+    <rect width="1600" height="314" y="313" fill="#40b7ff" />
+    <text x="650" y="250" fill="white" font-size="80">
+        svelty
+    </text>
+    <text x="300" y="400" fill="white" font-size="40">
+        Where homeless developers Talk and Hang Out
+    </text>
+</svg>
