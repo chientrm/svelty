@@ -64,6 +64,8 @@
 		justify-content: center;
 	}
 	div {
-		width: 40em;
+		width: 52em;
+		border: 1px dashed #676778;
+		padding: 1em;
 	}
 </style>

@@ -27,5 +27,11 @@ export default {
 		EMAILS: 'https://api.github.com/user/emails'
 	},
 	LOGIN: '/login',
-	LOGOUT: '/logout'
+	LOGOUT: '/logout',
+	ROOM: {
+		LIST: '/room',
+		NEW: '/room/_new',
+		GET: (name: string) => `/room/${name}`
+	},
+	NEW_ROOM: '/new_room'
 };

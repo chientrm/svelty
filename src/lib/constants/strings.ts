@@ -6,5 +6,10 @@ export default {
 	LOGIN: 'Login',
 	ROOMS: 'Rooms',
 	CONTINUE_WITH_GITHUB: 'Continue with Github',
-	LOGOUT: 'Logout'
+	LOGOUT: 'Logout',
+	NEW_ROOM: '+ New',
+	CHECKOUT_ROOMS: 'Checkout Rooms',
+	NEW: 'New',
+	LABEL_TITLE: 'Title',
+	TITLE_PLACEHOLDER: 'boo...'
 };
