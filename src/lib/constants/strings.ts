@@ -11,5 +11,7 @@ export default {
 	CHECKOUT_ROOMS: 'Checkout Rooms',
 	NEW: 'New',
 	LABEL_TITLE: 'Title',
-	TITLE_PLACEHOLDER: 'boo...'
+	TITLE_PLACEHOLDER: 'boo...',
+	MESSAGE: 'Message',
+	SEND: 'Send'
 };

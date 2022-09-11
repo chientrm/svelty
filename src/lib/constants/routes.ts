@@ -30,8 +30,12 @@ export default {
 	LOGOUT: '/logout',
 	ROOM: {
 		LIST: '/room',
-		NEW: '/room/_new',
-		GET: (name: string) => `/room/${name}`
-	},
-	NEW_ROOM: '/new_room'
+		NEW: '/room/new',
+		NAME: (name: string) => ({
+			GET: `/room/${name}`,
+			OFFSET: (offset: number) => ({
+				N_ITEMS: (n_items: number) => `/room/${name}/${offset}/${n_items}`
+			})
+		})
+	}
 };

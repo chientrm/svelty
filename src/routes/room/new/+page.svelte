@@ -14,7 +14,6 @@
 			pattern={inputs.NAME.PATTERN}
 			title={inputs.NAME.TITLE}
 			placeholder={strings.TITLE_PLACEHOLDER}
-			minlength="5"
 			maxlength="64"
 		/>
 	</label>

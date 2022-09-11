@@ -21,4 +21,8 @@ declare namespace Svelty {
 		id: number;
 		name: string;
 	}
+	interface Message {
+		user: User;
+		text: string;
+	}
 }
